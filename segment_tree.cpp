@@ -50,9 +50,9 @@ void init(int node, int b, int e) {
 int query(int node, int b, int e, int i, int j) {
 	if (i > e || j < b) return 0;
 	if (b >= i && e <= j) return tree[node];
-	int left = node * 2;
-	int right = node * 2 + 1;
-	int mid = (b + e) / 2;
+	int left = node << 2;
+	int right = (node << 2) + 1;
+	int mid = (b + e) >> 2;
 	int ls = query(left, b, mid, i, j);
 	int rs = query(right, mid + 1, e, i, j);
 	return ls + rs;
@@ -64,9 +64,9 @@ void update(int node, int b, int e, int i, int val) {
 		tree[node] = val;
 		return;
 	}
-	int left = node * 2;
-	int right = node * 2 + 1;
-	int mid = (b + e) / 2;
+	int left = node << 2;
+	int right = (node << 2) + 1;
+	int mid = (b + e) >> 2;
 	update(left, b, mid, i, val);
 	update(right, mid + 1, e, i, val);
 	tree[node] = tree[left] + tree[right];
@@ -74,13 +74,17 @@ void update(int node, int b, int e, int i, int val) {
 
 int main() {
 //	freopen("in", "r", stdin);
-	scanf("%d", &n);
-	for (int i = 1; i <= n; scanf("%d", &arr[i]), i++);
+	
+	int n, q, i, j, ans;
+	scanf("%d %d", &n, &q);
+	for (int k = 1; k <= n; scanf("%d", &arr[k]), k++);
 	init(1, 1, n);
-	cout << query(1, 1, n, 1, 7) << endl;
-	update(1, 1, n, 2, 0);
-	cout << query(1, 1, n, 1, 7) << endl;
-//	print(tree, 1, n*3);
+	while (q--) {
+		scanf("%d %d", &i, &j);
+		ans = query(1, 1, n, i, j);
+		printf("%d\n", ans);
+	}
+	return 0;
 }
 
 // 14 Feb, 2019 //////////////////
