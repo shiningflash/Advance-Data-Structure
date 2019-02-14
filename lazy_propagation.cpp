@@ -60,8 +60,8 @@ int query(int node, int b, int e, int i, int j, int carry = 0) {
 }
 
 void update(int node, int b, int e, int i, int j, int val) {
-	if (i > e || i < b) return;
-	if (b >= i && e <= i) {
+	if (i > e || j < b) return;
+	if (b >= i && e <= j) {
 		tree[node].sum += ((e - b + 1) * val);
 		tree[node].prop = val;
 		return;
@@ -75,7 +75,7 @@ void update(int node, int b, int e, int i, int j, int val) {
 }
 
 int main() {
-	 freopen("in", "r", stdin);
+	// freopen("in", "r", stdin);
 
 	int n, q, k, i, j, val;
 	scanf("%d %d", &n, &q);
