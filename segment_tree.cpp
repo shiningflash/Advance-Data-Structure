@@ -39,9 +39,9 @@ void init(int node, int b, int e) {
 		tree[node] = arr[b];
 		return;
 	}
-	int left = node * 2;
-	int right = node * 2 + 1;
-	int mid = (b + e) / 2;
+	int left = node << 1;
+	int right = (node << 1) + 1;
+	int mid = (b + e) >> 1;
 	init(left, b, mid);
 	init(right, mid + 1, e);
 	tree[node] = tree[left] + tree[right];
@@ -50,9 +50,9 @@ void init(int node, int b, int e) {
 int query(int node, int b, int e, int i, int j) {
 	if (i > e || j < b) return 0;
 	if (b >= i && e <= j) return tree[node];
-	int left = node << 2;
-	int right = (node << 2) + 1;
-	int mid = (b + e) >> 2;
+	int left = node << 1;
+	int right = (node << 1) + 1;
+	int mid = (b + e) >> 1;
 	int ls = query(left, b, mid, i, j);
 	int rs = query(right, mid + 1, e, i, j);
 	return ls + rs;
@@ -64,9 +64,9 @@ void update(int node, int b, int e, int i, int val) {
 		tree[node] = val;
 		return;
 	}
-	int left = node << 2;
-	int right = (node << 2) + 1;
-	int mid = (b + e) >> 2;
+	int left = node << 1;
+	int right = (node << 1) + 1;
+	int mid = (b + e) >> 1;
 	update(left, b, mid, i, val);
 	update(right, mid + 1, e, i, val);
 	tree[node] = tree[left] + tree[right];
