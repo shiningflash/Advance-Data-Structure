@@ -1,4 +1,5 @@
 // using binary indexed tree
+// Fenwick Tree
 // complexity - O(n)
 // update - O(log n)
 // query - O(log n)
