@@ -1,5 +1,7 @@
 // using binary indexed tree
-// complexity - O(log n)
+// complexity - O(n)
+// update - O(log n)
+// query - O(log n)
  
 #include <bits/stdc++.h>
 #define ll long long
