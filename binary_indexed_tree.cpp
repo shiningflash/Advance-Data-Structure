@@ -1,4 +1,5 @@
 // using binary indexed tree
+// complexity - O(log n)
  
 #include <bits/stdc++.h>
 #define ll long long
