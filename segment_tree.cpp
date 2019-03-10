@@ -35,46 +35,36 @@ void print(int a[], int b, int e) {
 }
 
 void init(int node, int b, int e) {
-	if (b == e) {
-		tree[node] = arr[b];
-		return;
-	}
-	int left = node << 1;
-	int right = (node << 1) + 1;
-	int mid = (b + e) >> 1;
-	init(left, b, mid);
-	init(right, mid + 1, e);
-	tree[node] = tree[left] + tree[right];
+    if (b == e) tree[node] = arr[b];
+    else {
+        int left = node << 1, right = left | 1, mid = (b+e) >> 1;
+        init(left, b, mid);
+        init(right, mid+1, e);
+        tree[node] = tree[left] + tree[right];
+    }
 }
 
 int query(int node, int b, int e, int i, int j) {
-	if (i > e || j < b) return 0;
-	if (b >= i && e <= j) return tree[node];
-	int left = node << 1;
-	int right = (node << 1) + 1;
-	int mid = (b + e) >> 1;
-	int ls = query(left, b, mid, i, j);
-	int rs = query(right, mid + 1, e, i, j);
-	return ls + rs;
-}
+    if (b > j || e < i) return 0;
+    if (b >= i && e <= j) return tree[node];
+    int left = node << 1, right = left | 1, mid = (b+e) >> 1;
+    return query(left, b, mid, i, j) + query(right, mid+1, e, i, j);
+} 
 
 void update(int node, int b, int e, int i, int val) {
-	if (i > e || i < b) return;
-	if (b >= i && e <= i) {
-		tree[node] = val;
-		return;
-	}
-	int left = node << 1;
-	int right = (node << 1) + 1;
-	int mid = (b + e) >> 1;
-	update(left, b, mid, i, val);
-	update(right, mid + 1, e, i, val);
-	tree[node] = tree[left] + tree[right];
+    if (b > i || e < i) return;
+    if (b >= i && e <= i) {
+        tree[node] = val;
+        return;
+    }
+    int left = node << 1, right = left | 1, mid = (b+e) >> 1;
+    update(left, b, mid, i, val);
+    update(right, mid+1, e, i, val);
+    tree[node] = tree[left] + tree[right];
 }
 
 int main() {
 //	freopen("in", "r", stdin);
-	
 	int n, q, i, j, ans;
 	scanf("%d %d", &n, &q);
 	for (int k = 1; k <= n; scanf("%d", &arr[k]), k++);
