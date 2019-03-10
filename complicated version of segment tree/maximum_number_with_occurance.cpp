@@ -52,3 +52,13 @@ int main() {
     x = get_max(1, 0, 5, 0, 5);
     cout << x.first << " " << x.second << endl;
 }
+
+/*
+
+OUTPUT
+------
+100001 1
+11 2
+107 1
+
+*/
