@@ -45,22 +45,20 @@ void init(int node, int b, int e) {
 }
 
 int query(int node, int b, int e, int i, int j) {
-    if (b > j || e < i) return 0;
-    if (b >= i && e <= j) return tree[node];
+    if (i > j) return 0;
+    if (i == b && j == e) return tree[node];
     int left = node << 1, right = left | 1, mid = (b+e) >> 1;
-    return query(left, b, mid, i, j) + query(right, mid+1, e, i, j);
+    return query(left, b, mid, i, min(mid, j)) + query(right, mid+1, e, max(mid+1, i), j);
 } 
 
 void update(int node, int b, int e, int i, int val) {
-    if (b > i || e < i) return;
-    if (b >= i && e <= i) {
-        tree[node] = val;
-        return;
+    if (b == e) tree[node] = val;
+    else {
+        int left = node << 1, right = left | 1, mid = (b+e) >> 1;
+        if (i <= mid) update(left, b, mid, i, val);
+        else update(right, mid+1, e, i, val);
+        tree[node] = tree[left] + tree[right];
     }
-    int left = node << 1, right = left | 1, mid = (b+e) >> 1;
-    update(left, b, mid, i, val);
-    update(right, mid+1, e, i, val);
-    tree[node] = tree[left] + tree[right];
 }
 
 int main() {
