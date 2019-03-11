@@ -1,5 +1,5 @@
 /*
-  Ghajini LightOJ - 1093
+  Ghajini LightOJ -  1093
   Amirul Islam, Feb 18, 2019
 */
 
