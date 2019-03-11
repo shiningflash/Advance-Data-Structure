@@ -1,6 +1,6 @@
 /*
   Diablo LightOJ - 1087 
-  Amirul Islam, 18 Feb, 2019
+  Amirul Islam, Feb 18, 2019
 */
 
 #include <bits/stdc++.h>
