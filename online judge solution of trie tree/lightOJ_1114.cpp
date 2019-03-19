@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int mx = 100005;
 int zz = 0;
 
 struct node {
@@ -10,7 +11,7 @@ struct node {
         cnt = 0;
         memset(next, -1, sizeof(next));
     }
-} tree[100005];
+} tree[mx];
 
 void insert(string s) {
     int cur = 0, id;
