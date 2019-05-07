@@ -11,7 +11,8 @@ int main() {
     for (int i = 0; i < n; scanf("%d", &a[i++]));
 
     // decomposed array, processing
-    int len = (int) sqrt(n) + 1;
+    int len = (int) sqrt(n);
+    len += !(len*len==n); // each block length and total block number
     int b[len];
     memset(b, 0, sizeof(b));
     for (int i = 0; i < n; b[i/len] += a[i], i++);
