@@ -15,15 +15,12 @@ int main() {
     len += !(len*len==n); // each block length and total block number
     int b[len];
     memset(b, 0, sizeof(b));
-    for (int i = 0; i < n; b[i/len] += a[i], i++);
+    for (int i = 0; i < n; b[i/len] += a[i++]);
 
     // answering the queries
-    scanf("%d", &q);
-    while (q--) {
+    for (scanf("%d", &q); q--; ) {
         scanf("%d %d", &l, &r);
-        int sum = 0;
-        int left_block = l/len;
-        int right_block = r/len;
+        int sum = 0, left_block = l/len, right_block = r/len;
         if (left_block == right_block) for (int i = l; i <= r; sum += a[i++]); // range is in same block
         else {
             for (int i = l, end = (left_block+1)*len-1; i <= end; sum += a[i++]); // left most block sum
