@@ -5,7 +5,7 @@
     Modify the i-th element in the sequence or for given x y print max{Ai + Ai+1 + .. + Aj | x<=i<=j<=y }
     
     0 x y: modify A[x] into y (|y|<=10000)
-    1 x y: print max{Ai + Ai+1 + .. + Aj | x<=i<=j<=y }
+    1 x y: print max { Ai + Ai+1 + .. + Aj | x<=i<=j<=y }
     
     [www.spoj.com/problems/GSS3]
 */
