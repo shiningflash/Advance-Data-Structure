@@ -34,5 +34,5 @@ int main() {
 		if (u == v) printf("They are already friend\n");
 		else par[u] = v; // make friend
 	}
-    return 0;
+        return 0;
 }
