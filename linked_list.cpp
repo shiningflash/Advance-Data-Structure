@@ -16,7 +16,7 @@ void InsertBeginning(Node** head, int data) {
 
 void Print(Node* temp) {
     printf("List is:");
-    while (temp != NULL) {
+    while (temp->next != NULL) {
         printf(" %d", temp->data);
         temp = temp->next;
     }
