@@ -40,7 +40,7 @@ node* insert(node *root, int data) {
 bool search(node *root, int data) {
     if (root == NULL) return false;
     else if (root->data == data) return true;
-    else if (data <= root->data) return search(root->left, data);
+    else if (data < root->data) return search(root->left, data);
     else return search(root->right, data);
 }
 
