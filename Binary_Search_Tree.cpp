@@ -7,74 +7,90 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct node {
+struct Node {
     int data;
-    node *left, *right;
+    Node *left, *right;
+
+    Node(int data) {
+        this->data = data;
+        left = right = NULL;
+    }
 };
 
-node* FindMin(node* root) {
-    while (root->left != NULL) root = root->left;
-    return root;
-}
-
-node* getNewNode(int data) {
-    node* new_node = new node();
-    new_node->data = data;
-    new_node->left = new_node->right = NULL;
-    return new_node;
-}
-
-node* insert(node *root, int data) {
+Node* Insert(Node* root, int data) {
     if (root == NULL) {
-        root = getNewNode(data);
+        root = new Node(data);
     }
     else if (data <= root->data) {
-        root->left = insert(root->left, data);
+        root->left = Insert(root->left, data);
     }
     else {
-        root->right = insert(root->right, data);
+        root->right = Insert(root->right, data);
     }
     return root;
 }
 
-bool search(node *root, int data) {
+bool Search(Node* root, int data) {
+    // Empty BST
     if (root == NULL) return false;
-    else if (root->data == data) return true;
-    else if (data < root->data) return search(root->left, data);
-    else return search(root->right, data);
+    
+    // YES! FOUND ...
+    if (data == root->data) return true;
+
+    if (data < root->data) {
+        return Search(root->left, data);
+    }
+    else {
+        return Search(root->right, data);
+    }
 }
 
-struct node* Delete(struct node* root, int data) {
+Node* FindMin(Node* root) {
+    while (root->left != NULL) {
+        root = root->left;
+    }
+    return root;
+}
+
+Node* Delete(Node* root, int data) {
+    // Empty 
     if (root == NULL) return root;
-    else if (data < root->data) root->left = Delete(root->left, data);
-    else if (data > root->data) root->right = Delete(root->right, data);
-    else { // FOUND
-        // Case 1: No Child
+    
+    else if (data < root->data) {
+        Delete(root->left, data);
+    }
+    else if (data > root->data) {
+        Delete(root->right, data);
+    }
+
+    // FOUND
+    else {
+        // Case 1: No child
         if (root->left == NULL && root->right == NULL) {
             delete(root);
         }
-        // Case 2: One Child
-        else if (root->left == NULL) {
-            struct node* tmp = root;
-            root = root->right;
-            delete(tmp);
-        }
+        // Case 2: One child
         else if (root->right == NULL) {
-            struct node* tmp = root;
+            Node* temp = root;
             root = root->left;
-            delete(tmp);
+            delete(temp);
+        }
+        else if (root->left == NULL) {
+            Node* temp = root;
+            root = root->right;
+            delete(temp);
         }
         // Case 3: Two children
         else {
-            struct node* tmp = FindMin(root->right);
-            root->data = tmp->data;
-            root->right = Delete(root->right, tmp->data);
+            Node* temp = FindMin(root->right);
+            root->data = temp->data;
+            root->right = Delete(root->right, temp->data);
         }
     }
     return root;
-};
+}
 
-void PreOrder(node *root) {
+void PreOrder(Node* root) {
     if (root == NULL) return;
     cout << root->data << " ";
     PreOrder(root->left);
@@ -82,14 +98,14 @@ void PreOrder(node *root) {
 } 
 
 // PRINT IN SORTED ORDER
-void InOrder(node *root) {
+void InOrder(Node* root) {
     if (root == NULL) return;
     InOrder(root->left);
     cout << root->data << " ";
     InOrder(root->right);
 }
 
-void PostOrder(node *root) {
+void PostOrder(Node* root) {
     if (root == NULL) return;
     PostOrder(root->left);
     PostOrder(root->right);
@@ -97,10 +113,10 @@ void PostOrder(node *root) {
 }
 
 int main() {
-    node *root = NULL;
+    Node* root = NULL;
 
     /*
-	                    35
+	            35
 			   / \
 			  10  55
 			 / \ 
@@ -108,16 +124,16 @@ int main() {
     */
 
     // insert data
-    root = insert(root, 15);
-    root = insert(root, 10);
-    root = insert(root, 35);
-    root = insert(root, 55);
-    root = insert(root, 5);
+    root = Insert(root, 15);
+    root = Insert(root, 10);
+    root = Insert(root, 35);
+    root = Insert(root, 55);
+    root = Insert(root, 5);
     
     // search data
     cout << "Enter a number to search: ";
     int n; cin >> n;
-    if (search(root, n)) cout << n << " FOUND!\n";
+    if (Search(root, n)) cout << n << " FOUND!\n";
     else cout << n << " NOT FOUND!\n";
 
     // delete data
