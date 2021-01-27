@@ -2,6 +2,6 @@
 !Makefile
 
 /CSHARP/bin
-/CSHARPobj
+/CSHARP/obj
 /CSHARP/CSHARP.csproj
 /CSHARP/in.txt
