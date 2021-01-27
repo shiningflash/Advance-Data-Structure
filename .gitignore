@@ -1,2 +1,7 @@
 !*.c
 !Makefile
+
+/CSHARP/bin
+/CSHARPobj
+/CSHARP/CSHARP.csproj
+/CSHARP/in.txt
