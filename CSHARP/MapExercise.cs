@@ -1,3 +1,8 @@
+/*
+    Take two integer followed by two string lines.
+    Check if all words of second string present in first string.
+*/
+
 using System;
 using System.Collections.Generic;
 
@@ -30,3 +35,22 @@ public class MapExercise {
         Console.WriteLine(ans ? "Yes" : "No");
     }
 }
+
+/*
+Input
+-
+6 4
+give me one grand today night
+give one grand today
+Output
+-
+Yes
+Input
+-
+6 5
+two times three is not four
+two times two is four
+Output
+-
+No
+*/

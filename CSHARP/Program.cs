@@ -8,13 +8,16 @@ public class Program {
         // MapExercise me = new MapExercise();
         // me.run(lines);
 
-        PriorityQueue<int> pq = new PriorityQueue<int>();
-        pq.Add(12, 12);
-        pq.Add(13, 13);
-        pq.Add(2, 2);
-        Console.WriteLine(pq.RemoveMin());
-        Console.WriteLine(pq.Peek());
-        Console.WriteLine(pq.RemoveMin());
-        Console.WriteLine(pq.RemoveMin());
+        // PriorityQueue<int> pq = new PriorityQueue<int>();
+        // pq.Add(12, 12);
+        // pq.Add(13, 13);
+        // pq.Add(2, 2);
+        // Console.WriteLine(pq.RemoveMin());
+        // Console.WriteLine(pq.Peek());
+        // Console.WriteLine(pq.RemoveMin());
+        // Console.WriteLine(pq.RemoveMin());
+
+        CustomSort cs = new CustomSort();
+        cs.manageCustomSort(lines);
     }
 }
