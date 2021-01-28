@@ -17,7 +17,10 @@ public class Program {
         // Console.WriteLine(pq.RemoveMin());
         // Console.WriteLine(pq.RemoveMin());
 
-        CustomSort cs = new CustomSort();
-        cs.manageCustomSort(lines);
+        // CustomSort cs = new CustomSort();
+        // cs.manageCustomSort(lines);
+
+        SegmentTree sg = new SegmentTree();
+        sg.manageSegmentTree();
     }
 }
