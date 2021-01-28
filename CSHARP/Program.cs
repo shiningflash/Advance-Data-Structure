@@ -20,7 +20,25 @@ public class Program {
         // CustomSort cs = new CustomSort();
         // cs.manageCustomSort(lines);
 
-        SegmentTree sg = new SegmentTree();
-        sg.manageSegmentTree();
+        // SegmentTree sg = new SegmentTree();
+        // sg.manageSegmentTree();
+
+        // string s = "Faizun Faria";
+        // char[] sc = s.ToCharArray();
+        // int[] occ = new int[26];
+        // for (int i = 0; i < 26; i++) occ[i] = 0;
+        // for (int i = 0; i < sc.Length; i++) {
+        //     if (sc[i] == ' ') continue;
+        //     if (sc[i] >= 'A' && sc[i] <= 'Z') sc[i] = (char) ((int) sc[i] - (int) 'A' + (int) 'a');
+        //     occ[(int) sc[i] - (int) 'a']++;
+        // }
+        // for (int i = 0; i < 26; i++) {
+        //     if (occ[i] > 0) {
+        //         Console.WriteLine("{0} {1}", (char) (i + (int) 'a'), occ[i]);
+        //     }
+        // }
+
+        BinarySearchTree bst = new BinarySearchTree();
+        bst.manageBinarySearch();
     }
 }
