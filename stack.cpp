@@ -1,21 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define SIZE 10
- 
-class mystack {
-    
-    public:
-        int *arr;
-        int top;
-        int capacity;
 
+template<class Type>
+class mystack {
+
+private:
+    Type *arr;
+    int top;
+    int capacity;
+    
+public:
     mystack(int size) {
-        arr = new int[size];
+        arr = new Type[size];
         capacity = size;
         top = -1;
     }
     
-    void push(int item) {
+    void push(Type item) {
         if (isFull()) {
             printf("Error: stack overflow.");
             return;
@@ -31,7 +33,7 @@ class mystack {
         top--;
     }
     
-    int peek() {
+    Type peek() {
         if (isEmpty()) {
             printf("Error: stack is empty.");
             exit(EXIT_FAILURE);
@@ -53,7 +55,7 @@ class mystack {
     
     void print_stack(mystack st) {
         while (!st.isEmpty()) {
-            printf("%d ", st.peek());
+            cout << st.peek() << " ";
             st.pop();
         }
         printf("\n");
@@ -61,10 +63,11 @@ class mystack {
 };
 
 int main() {
-    mystack st(10);
-    st.push(1);
-    st.push(2);
-    st.push(3);
+    mystack<string> st(10);
+    
+    st.push("brac");
+    st.push("aiub");
+    st.push("du");
     st.print_stack(st);
     st.pop();
     st.pop();
