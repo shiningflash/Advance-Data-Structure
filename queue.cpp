@@ -2,22 +2,24 @@
 using namespace std;
 #define SIZE 10
 
+template <class Type>
 class Queue {
-    
-    public:
-        int *arr;
-        int head;
-        int tail;
-        int capacity;
 
+private:
+    Type *arr;
+    int head;
+    int tail;
+    int capacity;
+
+public:
     Queue(int size) {
-        arr = new int[size];
+        arr = new Type[size];
         head = 0;
         tail = 0;
         capacity = size;
     }
 
-    void enqueue(int item) {
+    void enqueue(Type item) {
         if (isFull()) {
             printf("Error, stack is full\n");
             exit(EXIT_FAILURE);
@@ -26,12 +28,12 @@ class Queue {
         tail = (tail+1) % capacity;
     }
 
-    int dequeue() {
+    Type dequeue() {
         if (isEmpty()) {
             printf("Error, stack is empty\n");
             exit(EXIT_FAILURE);
         }
-        int item = arr[head];
+        Type item = arr[head];
         head = (head + 1) % capacity;
         return item;
     }
@@ -46,7 +48,14 @@ class Queue {
 };
 
 int main() {
-    Queue q(5);
-    for (int i = 0; i < 4; i++) q.enqueue(i+1);
-    for (int i = 0; i < 5; i++) printf("%d\n", q.dequeue());
+    Queue <string> q(5);
+    
+    q.enqueue("brac");
+    q.enqueue("aiub");
+    q.enqueue("du");
+    
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
 }
