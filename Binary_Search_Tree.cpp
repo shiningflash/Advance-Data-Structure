@@ -33,7 +33,7 @@ Node* Insert(Node* root, int data) {
 bool Search(Node* root, int data) {
     // Empty BST
     if (root == NULL) return false;
-    
+
     // YES! FOUND ...
     if (data == root->data) return true;
 
@@ -57,30 +57,24 @@ Node* Delete(Node* root, int data) {
     if (root == NULL) return root;
     
     else if (data < root->data) {
-        Delete(root->left, data);
+        root->left = Delete(root->left, data);
     }
     else if (data > root->data) {
-        Delete(root->right, data);
+        root->right = Delete(root->right, data);
     }
 
     // FOUND
     else {
-        // Case 1: No child
-        if (root->left == NULL && root->right == NULL) {
-            delete(root);
-        }
-        // Case 2: One child
-        else if (root->right == NULL) {
-            Node* temp = root;
-            root = root->left;
-            delete(temp);
+        if (root->right == NULL) {
+            Node* temp = root->left;
+            free(root);
+            return temp;
         }
         else if (root->left == NULL) {
-            Node* temp = root;
-            root = root->right;
-            delete(temp);
+            Node* temp = root->right;
+            free(root);
+            return temp;
         }
-        // Case 3: Two children
         else {
             Node* temp = FindMin(root->right);
             root->data = temp->data;
@@ -90,26 +84,40 @@ Node* Delete(Node* root, int data) {
     return root;
 }
 
-void PreOrder(Node* root) {
+void Preorder(Node* root) {
     if (root == NULL) return;
     cout << root->data << " ";
-    PreOrder(root->left);
-    PreOrder(root->right);
-} 
-
-// PRINT IN SORTED ORDER
-void InOrder(Node* root) {
-    if (root == NULL) return;
-    InOrder(root->left);
-    cout << root->data << " ";
-    InOrder(root->right);
+    Preorder(root->left);
+    Preorder(root->right);
 }
 
-void PostOrder(Node* root) {
+// PRINT IN SORTED ORDER
+void Inorder(Node* root) {
     if (root == NULL) return;
-    PostOrder(root->left);
-    PostOrder(root->right);
-    cout << root->data << " "; 
+    Inorder(root->left);
+    cout << root->data << " ";
+    Inorder(root->right);
+}
+
+void Postorder(Node* root) {
+    if (root == NULL) return;
+    Postorder(root->left);
+    Postorder(root->right);
+    cout << root->data << " ";
+}
+
+void PrintBST(Node* root) {
+    cout << "\nPre Order: ";
+    Preorder(root);
+    cout << "\nIn Order: ";
+    Inorder(root);
+    cout << "\nPost Order: ";
+    Postorder(root);
+    cout << "\n";
+}
+
+void printSearchResult(Node* root, int n) {
+    cout << n << (Search(root, n) ? " FOUND!\n" : " NOT FOUND!\n");
 }
 
 int main() {
@@ -130,42 +138,33 @@ int main() {
     root = Insert(root, 55);
     root = Insert(root, 5);
     
-    // search data
-    cout << "Enter a number to search: ";
-    int n; cin >> n;
-    if (Search(root, n)) cout << n << " FOUND!\n";
-    else cout << n << " NOT FOUND!\n";
-
-    // delete data
-    cout << "Enter a number to delete: ";
-    cin >> n;
-    root = Delete(root, n);
-    cout << n << " DELETED!\n";
+    printSearchResult(root, 10);
+    printSearchResult(root, 25);
 
     // print data in different order
-    cout << "Pre-oder: ";
-    PreOrder(root);
-    cout << "\n";
-    
-    cout << "In-order: ";
-    InOrder(root); // ALWAYS SORTED OUTPUT
-    cout << "\n";
+    PrintBST(root);
 
-    cout << "Post-order: ";
-    PostOrder(root);
-    cout << "\n";
+    // delete data
+    int n = 35;
+    root = Delete(root, n);
+    cout << "\n" << n << " DELETED!\n";
+
+    PrintBST(root);
 
     return 0;
 }
 
 /*
-OUTPUT
+10 FOUND!
+25 NOT FOUND!
 
-Enter a number to search: 12
-12 NOT FOUND!
-Enter a number to delete: 15
-15 DELETED!
-Pre-oder: 35 10 5 55 
-In-order: 5 10 35 55 
-Post-order: 5 10 55 35 
+Pre Order: 15 10 5 35 55 
+In Order: 5 10 15 35 55 
+Post Order: 5 10 55 35 15 
+
+35 DELETED!
+
+Pre Order: 15 10 5 55 
+In Order: 5 10 15 55 
+Post Order: 5 10 55 15
 */
