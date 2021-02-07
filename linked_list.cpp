@@ -35,6 +35,22 @@ void Insert(Node** head, int data, int pos) {
 }
 
 Node* Reverse(Node* head) {
+    Node *current, *prev, *next;
+    current = head;
+    prev = next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+
+    head = prev;
+    return head;
+}
+
+Node* ReverseRecursive(Node* head) {
     if (head->next == NULL) {
         return head;
     }
@@ -101,7 +117,7 @@ int main() {
     Delete(&head, 1);
     printList(head);
 
-    Node* rec = Reverse(head);
+    Node* rec = ReverseRecursive(head);
     printList(rec);
 }
 
