@@ -14,15 +14,6 @@ void InsertBegin(Node** head, int data) {
     *head = temp;
 }
 
-void print(Node* temp) {
-    printf("List is:");
-    while (temp != NULL) {
-        printf(" %d", temp->data);
-        temp = temp->next;
-    }
-    printf("\n");
-}
-
 void Insert(Node** head, int data, int pos) {
     Node* temp1 = new Node();
     temp1->data = data;
@@ -37,96 +28,98 @@ void Insert(Node** head, int data, int pos) {
 
     // n'th position
     Node* temp2 = *head;
-    for (int i = 1; i < pos - 1; i++) {
-        temp2 = temp2->next;
-    }
+    for (int i = 1; i < pos-1; i++) temp2 = temp2->next;
+
     temp1->next = temp2->next;
     temp2->next = temp1;
 }
 
-void Delete(Node** head, int pos) {
-    Node* temp1 = *head;
-
-    // first Node, pos = 1
-    if (pos == 1) {
-        *head = temp1->next;
-        free(temp1); // deallocate the memory
-        return;
-    }
-
-    // n'th position
-    for (int i = 1; i < pos - 1; i++) {
-        temp1 = temp1->next;
-    }
-    Node* temp2 = temp1->next;
-    temp1->next = temp2->next;
-    free(temp2);
-}
-
 Node* Reverse(Node* head) {
-    Node *current, *prev, *next;
-    current = head;
-    prev = next = NULL;
-
-    while (current != NULL) {
-        next = current->next;
-        current->next = prev;
-        prev = current;
-        current = next;
-    }
-
-    head = prev;
-    return head;
-}
-
-Node* Reverse_Recursive(Node* head) {
-    if (head == NULL || head->next == NULL) {
+    if (head->next == NULL) {
         return head;
     }
-    Node* temp = Reverse_Recursive(head->next);
+    Node* temp = Reverse(head->next);
     head->next->next = head;
     head->next = NULL;
     return temp;
 }
 
+void Delete(Node** head, int pos) {
+    Node* temp1 = *head;
+
+    // delete first node
+    if (pos == 1) {
+        *head = temp1->next;
+        free(temp1); // de-allocate the memory
+        return;
+    }
+
+    // n'th position
+    for (int i = 1; i < pos-1; i++) temp1 = temp1->next;
+
+    Node* temp2 = temp1->next;
+    temp1->next = temp2->next;
+    free(temp2);
+}
+
+void print(Node* temp) {
+    while (temp == NULL) return;
+    cout << temp->data << " ";
+    print(temp->next);
+}
+
+void print_recursive(Node* temp) {
+    while (temp == NULL) return;
+    print_recursive(temp->next);
+    cout << temp->data << " ";
+}
+
+void printList(Node* head) {
+    cout << "\n=> ";
+    print(head);
+    cout << "\n";
+    cout << "<= ";
+    print_recursive(head);
+    cout << "\n\n";
+}
+
 int main() {
     Node* head = NULL;
-    for (int i = 5; i >= 1; i--) {
-        InsertBegin(&head, i);
-        print(head);
-    }
     
-    Insert(&head, 6, 6);
-    print(head);
-    Insert(&head, 7, 7);
-    print(head);
+    InsertBegin(&head, 6);
+    InsertBegin(&head, 5);
+    InsertBegin(&head, 4);
+    InsertBegin(&head, 3);
+    InsertBegin(&head, 2);
+    printList(head);
 
-    Delete(&head, 7);
-    print(head);
-    Delete(&head, 6);
-    print(head);
+    Insert(&head, 12, 1);
+    Insert(&head, 13, 2);
+    printList(head);
+
+    Delete(&head, 2);
     Delete(&head, 1);
-    print(head);
+    printList(head);
 
-    // Node* rev = Reverse(head);
-    // print(rev);
-    
-    Node* rec_rev = Reverse_Recursive(head);
-    print(rec_rev);
+    Node* rec = Reverse(head);
+    printList(rec);
 }
 
 /*
-OUTPUT
 
-List is: 5
-List is: 4 5
-List is: 3 4 5
-List is: 2 3 4 5
-List is: 1 2 3 4 5
-List is: 1 2 3 4 5 6
-List is: 1 2 3 4 5 6 7
-List is: 1 2 3 4 5 6
-List is: 1 2 3 4 5
-List is: 2 3 4 5
-List is: 5 4 3 2
+=> 2 3 4 5 6 
+<= 6 5 4 3 2 
+
+
+=> 12 13 2 3 4 5 6 
+<= 6 5 4 3 2 13 12 
+
+
+=> 2 3 4 5 6 
+<= 6 5 4 3 2 
+
+
+=> 6 5 4 3 2 
+<= 2 3 4 5 6 
+
 */
