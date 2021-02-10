@@ -54,7 +54,7 @@ Node* ReverseRecursive(Node* head) {
     if (head->next == NULL) {
         return head;
     }
-    Node* temp = Reverse(head->next);
+    Node* temp = ReverseRecursive(head->next);
     head->next->next = head;
     head->next = NULL;
     return temp;
