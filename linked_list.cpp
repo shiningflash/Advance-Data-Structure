@@ -99,14 +99,62 @@ void printList(Node* head) {
     cout << "\n\n";
 }
 
+Node* middleNode(Node* head) {
+    if (head == NULL) {
+        return head;
+    }
+    
+    Node* a = head;
+    Node* b = head->next;
+
+    while (b != NULL && b->next != NULL) {
+        a = a->next;
+        b = b->next->next;
+    }
+
+    return a;
+}
+
+Node* Merge(Node* a, Node* b) {
+    Node* temp = new Node();
+    Node* resultList = temp;
+
+    while (a != NULL && b != NULL) {
+        if (a->data > b->data) {
+            temp->next = a;
+            a = a->next;
+        }
+        else {
+            temp->next = b;
+            b = b->next;
+        }
+        temp = temp->next;
+    }
+
+    temp->next = (a == NULL) ? b : a;
+    return resultList->next;
+}
+
+Node* MergeSort(Node* head) {
+    if (head == NULL || head->next == NULL) {
+        return head;
+    }
+
+    Node* middle = middleNode(head);
+    Node* secondHalf = middle->next;
+    middle->next = NULL; // end of first half
+
+    return Merge(MergeSort(head), MergeSort(secondHalf));
+}
+
 int main() {
     Node* head = NULL;
     
-    InsertBegin(&head, 6);
+    InsertBegin(&head, 1);
     InsertBegin(&head, 5);
-    InsertBegin(&head, 4);
+    InsertBegin(&head, 10);
     InsertBegin(&head, 3);
-    InsertBegin(&head, 2);
+    InsertBegin(&head, 21);
     printList(head);
 
     Insert(&head, 12, 1);
@@ -117,8 +165,15 @@ int main() {
     Delete(&head, 1);
     printList(head);
 
+    cout << "Sort:\n";
+    Node* sorted = MergeSort(head);
+    printList(sorted);
+
+    cout << "Reverse:\n";
     Node* rec = ReverseRecursive(head);
     printList(rec);
+
+
 }
 
 /*
