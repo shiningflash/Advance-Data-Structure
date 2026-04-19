@@ -2,74 +2,38 @@
 using namespace std;
 #define SIZE 10
 
-template<class Type>
-class mystack {
-
-private:
-    Type *arr;
+typedef struct {
     int top;
-    int capacity;
-    
-public:
-    mystack(int size) {
-        arr = new Type[size];
-        capacity = size;
-        top = -1;
+    int arr[SIZE];
+} Stack;
+
+void push(Stack *st, int item) {
+    if (st->top == SIZE) {
+        printf("Error: Stack is full\n");
+        return;
     }
-    
-    void push(Type item) {
-        if (isFull()) {
-            printf("Error: stack overflow.");
-            return;
-        }
-        arr[++top] = item;
+    st->arr[st->top] = item;
+    st->top = st->top + 1;
+}
+
+int pop(Stack *st) {
+    if (st->top == 0) {
+        printf("Error: Stack is empty\n");
+        exit(EXIT_FAILURE);
     }
-    
-    void pop() {
-        if (isEmpty()) {
-            printf("Error: stack is empty.");
-            return;
-        }
-        top--;
-    }
-    
-    Type peek() {
-        if (isEmpty()) {
-            printf("Error: stack is empty.");
-            exit(EXIT_FAILURE);
-        }
-        return arr[top];
-    }
-    
-    int size() {
-        return top + 1;
-    }
-    
-    bool isEmpty() {
-        return top == -1;
-    }
-    
-    bool isFull() {
-        return top == capacity - 1;
-    }
-    
-    void print_stack(mystack st) {
-        while (!st.isEmpty()) {
-            cout << st.peek() << " ";
-            st.pop();
-        }
-        printf("\n");
-    }
-};
+    st->top = st->top - 1;
+    return st->arr[st->top];
+}
 
 int main() {
-    mystack<string> st(10);
-    
-    st.push("brac");
-    st.push("aiub");
-    st.push("du");
-    st.print_stack(st);
-    st.pop();
-    st.pop();
-    st.print_stack(st);
+    Stack mystack;
+    mystack.top = 0;
+    push(&mystack, 1);
+    push(&mystack, 2);
+    push(&mystack, 3);
+    printf("%d\n", pop(&mystack));
+    printf("%d\n", pop(&mystack));
+    printf("%d\n", pop(&mystack));
+    printf("%d\n", pop(&mystack));
+    return 0;
 }
