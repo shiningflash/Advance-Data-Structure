@@ -41,6 +41,7 @@ class Trie:
 
 word = "hello"
 search = "hello"
+
 trie = Trie()
 trie.insert(word)
 print(trie.search(search))
