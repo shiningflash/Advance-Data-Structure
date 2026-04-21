@@ -26,15 +26,21 @@ Expected output:
 """
 
 import re
+import string
 from collections import Counter
 
 
 def word_frequency(text: str) -> dict[str, int]:
     text_lower = text.lower()
     text_cleaned = re.findall(r"\b[a-z]+\b", text_lower)
-    print(text_cleaned)
     return dict(Counter(text_cleaned))
+
+
+def word_frequency_alternative(text: str) -> dict[str, int]:
+    table = str.maketrans("", "", string.punctuation)
+    return dict(Counter(text.lower().translate(table).split()))
 
 
 text = "Hello, hello world! Hello Python."
 print(word_frequency(text))
+print(word_frequency_alternative(text))
